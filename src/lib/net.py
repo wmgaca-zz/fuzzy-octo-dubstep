@@ -35,9 +35,9 @@ class SocketHandler(object):
 
         if self.socket:
             try:
-                self.socket.sendall(package.serialize())
-            except socket.error:
-                print 'Cannot send package: %s' % package
+                self.socket.sendall(package.get_serialized())
+            except socket.error as exc:
+                print 'Cannot send package: %s (%s)' % (package, exc)
 
     def close(self):
         SocketHandler._listen = False
