@@ -1,3 +1,4 @@
+import pickle
 from time import time
 
 
@@ -24,6 +25,9 @@ class HandShake(OctoPackage):
     """Sent by user when joining a conversation."""
 
     user_name = ''
+
+    def to_user_new(self):
+        return UserNew(user_name=self.user_name)
 
 
 class GoodBye(OctoPackage):

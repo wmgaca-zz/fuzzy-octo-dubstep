@@ -16,14 +16,19 @@ def package_dispatcher(package):
 
 
 def main():
+    try:
+        socket_handler = net.SocketHandler(HOST, PORT, package_dispatcher)
+    except socket.error as exc:
+        print 'Cannot connect: %s' % exc
 
-    socket_handler = net.SocketHandler(HOST, PORT, package_dispatcher)
-    socket_handler.send(packages.HandShake())
+    user_name = raw_input('User name: ')
+
+    socket_handler.send(packages.HandShake(user_name=user_name))
 
     while True:
-        user_input = raw_data()
+        user_input = raw_input()
         print 'Got input: %s -- sending!' % user_input
-        socket_handler.send(packages.UserMessage(user_name='Foo',
+        socket_handler.send(packages.UserMessage(user_name=user_name,
                                                  message=user_input))
 
 
